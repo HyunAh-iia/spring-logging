@@ -1,13 +1,15 @@
 # Spring Logging
-### 1. Logging HTTP Request/Response
+### 1. Logging HTTP Request/Response With Trace Id
 - Logging HTTP Request Method, URI, Query String, Content type and Payload
 - Logging HTTP Response
-- Add Trace Id (for each HTTP Request)
+- Trace Id for each HTTP Request
 - See commit [48e0d37a](https://github.com/HyunAh-iia/spring-logging/commit/48e0d37a36ce362b7d44ed11dceb1d4e71b8dea7)
-###2. Send Logs to AWS CloudWatch if Active Profile is dev, prod
-- If Active profile is dev or prod, Send logs to CloudWatch
-- If not, Print Console Log
+
+### 2. Send Logs to AWS CloudWatch if Active Profile is dev, prod
+- If Active profile is dev or prod, Send Logs to CloudWatch
+- If not, Print Logs to Console
 - See commit [144d71f0](https://github.com/HyunAh-iia/spring-logging/commit/144d71f01a9f170e1186f5c9905ad6e90082d7cf)
+
 ### Test
 - Run SpringLoggingApplication
 - Call Sample API
