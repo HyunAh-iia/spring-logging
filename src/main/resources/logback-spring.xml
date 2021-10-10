@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %magenta([traceId=%X{traceId}]) %highlight(%-5level) %logger{36}.%M - %msg%n
-            </pattern>
-        </encoder>
-    </appender>
-
-    <springProfile name="!(dev | production)">
-        <root level="info">
-            <appender-ref ref="CONSOLE"/>
+    <springProfile name="!(dev | prod)">
+        <root level="debug">
+            <appender name="CONSOLE_LOG" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %magenta([traceId=%X{traceId}]) %highlight(%-5level) %logger{36}.%M - %msg%n</pattern>
+                </encoder>
+            </appender>
         </root>
     </springProfile>
 
-    <springProfile name="dev | production">
+    <springProfile name="dev | prod">
         <root level="info">
+            <appender name="CLOUDWATCH_LOG" class="ca.pjer.logback.AwsLogsAppender">
+                <layout>
+                    <pattern>[traceId=%X{traceId}] %-5level %logger{36}.%M - %msg%n</pattern>
+                </layout>
+                <logGroupName>taling-live-server</logGroupName>
+                <logStreamUuidPrefix>api</logStreamUuidPrefix>
+                <logRegion>ap-northeast-2</logRegion>
+                <maxBatchLogEvents>50</maxBatchLogEvents>
+                <maxFlushTimeMillis>30000</maxFlushTimeMillis>
+                <maxBlockTimeMillis>5000</maxBlockTimeMillis>
+                <retentionTimeDays>0</retentionTimeDays>
+            </appender>
         </root>
     </springProfile>
 
